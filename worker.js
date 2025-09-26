@@ -549,7 +549,7 @@ async function handleFileUpload(update, bot, csvManager) {
       await csvManager.appendToCSV(numericalFileId, fileId, fileName, fileType);
       const totalFiles = await csvManager.getFileCount();
       if (addingMessage.ok) await bot.deleteMessage(chatId, addingMessage.result.message_id);
-      await bot.sendMessage(chatId, `*✅ File archived successfully!*\n\n*File Name:* \`${fileName}\`\n*Numerical File ID:* \`${numericalFileId}\`\n\n*Total files:* ${totalFiles}`);
+      await bot.sendMessage(chatId, `*Received Video:*\n\n*File Name:* \`${fileName}\`\n*Numerical File ID:* \`${numericalFileId}\`\n\n*Total files:* ${totalFiles}`);
     }
   } catch (error) {
     console.error('Error handling file upload:', error);

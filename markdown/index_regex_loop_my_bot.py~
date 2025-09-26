@@ -1,0 +1,39 @@
+import re
+import os
+
+
+def replace_(markdown_links):
+    markdown_links = markdown_links.replace(".mp4","")
+    markdown_links = markdown_links.replace("atf","")
+    markdown_links = markdown_links.replace("_"," ")
+
+    return markdown_links
+
+
+for file_name_txt in os.listdir("."):
+    if file_name_txt.endswith(".txt"):
+        with open(file_name_txt,"r") as f:
+            file_data=f.read()
+
+        # Regular expression patterns to extract file names and numbers
+        file_name_pattern = r"File Name: (.+)"
+        file_number_pattern = r"File Number is: (\d+)"
+
+        # Extract file names and numbers using regex
+        file_names = re.findall(file_name_pattern, file_data)
+        file_numbers = re.findall(file_number_pattern, file_data)
+
+        # Format data into Markdown links
+        markdown_links = ""
+        for file_name, file_number in zip(file_names, file_numbers):
+            markdown_link = f"[{file_name.strip()}](https://t.me/ArchiveAnyFileBot?start={file_number})"
+
+            markdown_links+=f"{markdown_link}\n"
+
+        with open(f"./MDs/{file_name_txt}.md","w") as f:
+            markdown_links = replace_(markdown_links)
+            f.write(markdown_links)
+
+    else:
+        continue
+
